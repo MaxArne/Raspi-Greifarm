@@ -12,9 +12,9 @@ int frequency = 0;
 
 int setup(char x0, char y1)
 {
+wiringPiSetup () ;
 if (wiringPiSetup() == -1)
     return 1;
-wiringPiSetup () ;
 //Pins als Outputs/Inputs initialiesieren
 // pinMode (S0, Output);
 // pinMode (S1, Output);
@@ -46,11 +46,11 @@ digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
 
 // Reading the output frequency
-frequency = pulseIn(sensorOut, LOW);
+frequency = pulseIn(sensorOut, LOW);    //Ersetzen durch Puls Messung risingedge bis fallingedge ms Messung
 // Printing the value on the serial monitor
-Serial.print("R= ");		//printing name
-Serial.print(frequency);	//printing RED color frequency
-Serial.print("  ");
+print("R= ");		//printing name
+print(frequency);	//printing RED color frequency
+print("  ");
 delay(100);
 
 }
