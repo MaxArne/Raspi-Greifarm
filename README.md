@@ -1,4 +1,4 @@
 # Raspi-Greifarm
-  Legostein Sortierroboter /endl;
-  4 Servommotoren ein Farbsensor;
-  Uniprojekt;
+  Legostein Sortierroboter ,    
+  ,4 Servommotoren ein Farbsensor
+  ,Uniprojekt
