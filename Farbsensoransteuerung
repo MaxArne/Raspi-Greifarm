@@ -12,10 +12,12 @@ int frequency = 0;
 
 int setup(char x0, char y1)
 {
+if (wiringPiSetup() == -1)
+    return 1;
 wiringPiSetup () ;
 //Pins als Outputs/Inputs initialiesieren
-pinMode (S0, Output);
-pinMode (S1, Output);
+// pinMode (S0, Output);
+// pinMode (S1, Output);
 pinMode (S2, Output);
 pinMode (S3, Output);
 pinMode (sensorOut, Input);
@@ -25,16 +27,16 @@ pinMode (sensorOut, Input);
 // x = High + y = Low -> 20%
 // x = High + y = High -> 100%
 
-digitalWrite(S0,x);
-delay (500);
-digitalWrite(S1,y);
-delay (500);
+//digitalWrite(S0,x);
+//delay (500);
+//digitalWrite(S1,y);
+//delay (500);
 }
 
 int main(void)
 {
 
-setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
+//setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
 //S2 = Low + S3 = High -> blau
