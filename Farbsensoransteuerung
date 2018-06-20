@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <wiringPi.h>
-
-#define S0 		//Pin eintragen
-#define S1 
-#define S2 
-#define S3 
-#define sensorOut 
+//https://www.electronicshub.org/raspberry-pi-color-sensor-tutorial/
+// Pin Belegung in BCM Nummern
+#define S0        // direct auf Vcc
+#define S1        // direct auf Vcc
+#define S2 23
+#define S3 24
+#define sensorOut 25
 
 int frequency = 0;
 
