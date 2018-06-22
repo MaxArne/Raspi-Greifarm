@@ -57,12 +57,13 @@ int greenloop = 0;
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
+int i = 0;
+uint64_t diff;
+timespec start, end;
 // roter Sensor bleibt für mindestens 500ms aktiv
-while (redloop < 50 || i=2)
+while (redloop < 50 || i == 2)
 {
-    	uint64_t diff;
-	struct timespec start, end;
-	int i = 0;
+    	
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
@@ -81,7 +82,7 @@ while (redloop < 50 || i=2)
 }
     // Printing the value on the serial monitor
     diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
-	printf("Rot = %llu \n", (long long unsigned int) diff);
+    printf("Rot = %llu \n", (long long unsigned int) diff);
     exit(0);
     }
 }
