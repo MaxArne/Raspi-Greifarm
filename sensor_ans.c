@@ -108,7 +108,7 @@ while (blueloop < 50 || i == 2)
     clock_gettime(CLOCK_MONOTONIC, &end);
     i = 2;
     }
-    redloop = redloop +1;
+    blueloop = blueloop +1;
     // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
     delay(10);
 }
@@ -137,16 +137,16 @@ while (greenloop < 50 || i == 2)
     clock_gettime(CLOCK_MONOTONIC, &end);
     i = 2;
     }
-    redloop = redloop +1;
+    greenloop = greenloop +1;
     // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
     delay(10);
 }
     // Printing the value on the serial monitor
     diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
-    printf("Grün = %llu \n", (long long unsigned int) diff);
+    printf("Gruen = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
-    grünloop = 0;
+    greenloop = 0;
 }
     exit(0);
     
