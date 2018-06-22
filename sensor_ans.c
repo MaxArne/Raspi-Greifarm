@@ -59,6 +59,7 @@ struct timespec start, end;
 //S2 = High + S3 = High -> grün
 while (1)
 {
+/*
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
@@ -120,7 +121,7 @@ while (blueloop < 50 || i == 2)
     i = 0;
     blueloop = 0;
     diff = 1000000000;
- 
+*/ 
 //grün lesen
 digitalWrite(S2,HIGH);
 digitalWrite(S3,HIGH);
