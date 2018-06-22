@@ -1,41 +1,38 @@
-/*
- * Das Programm gibt die Laufzeit aus und dienst als Testbeispiel für die Zeitmessung der Pulse des Sensors
- */
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <time.h>
+#include <stdio.h>	/* for printf */
+#include <stdint.h>	/* for uint64 definition */
+#include <stdlib.h>	/* for exit() definition */
+#include <time.h>	/* for clock_gettime */
 
-#define BILLION  1000000000L;
+#define BILLION 1000000000L
 
-int main( int argc, char **argv )
-  {
-    struct timespec start, stop;
-    double accum;
-
-    if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
-      perror( "clock gettime" );
-      exit( EXIT_FAILURE );
-    }
-
-int i;
-int a;
-for(i=0; i< 1000000; i++) 
-{
-a= a + 1;
-printf ("%d",a);
+int localpid(void) {
+	static int a[9] = { 0 };
+	return a[0];
 }
 
-    system( argv[1] );
+main(int argc, char **argv)
+{
+	uint64_t diff;
+	struct timespec start, end;
+	int i;
 
-    if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
-      perror( "clock gettime" );
-      exit( EXIT_FAILURE );
-    }
+	/* measure monotonic time */
+	clock_gettime(CLOCK_MONOTONIC, &start);	/* mark start time */
+	sleep(1);	/* do stuff */
+	clock_gettime(CLOCK_MONOTONIC, &end);	/* mark the end time */
 
-    accum = ( stop.tv_sec - start.tv_sec )
-          + ( stop.tv_nsec - start.tv_nsec )
-            / BILLION;
-    printf( "%lf\n", accum );
-    return( EXIT_SUCCESS );
-  }
+	diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+	printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+
+	/* now re-do this and measure CPU time */
+	/* the time spent sleeping will not count (but there is a bit of overhead */
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);	/* mark start time */
+	sleep(1);	/* do stuff */
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);		/* mark the end time */
+
+	diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+	printf("elapsed process CPU time = %llu nanoseconds\n", (long long unsigned int) diff);
+
+	exit(0);
+}
+
