@@ -84,5 +84,5 @@ while (redloop < 50 || i == 2)
     diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Rot = %llu \n", (long long unsigned int) diff);
     exit(0);
-    }
+    
 }
