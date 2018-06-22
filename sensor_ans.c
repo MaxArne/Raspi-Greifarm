@@ -50,7 +50,7 @@ int redloop = 0;
 int blueloop = 0;
 int greenloop = 0;
 int i = 0;
-uint64_t diff;
+uint64_t diff = 1000000000;
 struct timespec start, end;
 //setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
@@ -84,7 +84,7 @@ while (redloop < 50 || i == 2)
     delay(10);
 }
     // Printing the value on the serial monitor
-    diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Rot = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -113,7 +113,7 @@ while (blueloop < 50 || i == 2)
     delay(10);
 }
     // Printing the value on the serial monitor
-    diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Blau = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -142,7 +142,7 @@ while (greenloop < 50 || i == 2)
     delay(10);
 }
     // Printing the value on the serial monitor
-    diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Gruen = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
