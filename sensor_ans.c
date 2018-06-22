@@ -39,27 +39,30 @@ pinMode (sensorOut, Input);
 
 int main(void)
 {
+// OUTPUT / INPUT Definition
 if (wiringPiSetup() == -1)
     return 1;
 pinMode (S2, OUTPUT);
 pinMode (S3, OUTPUT);
 pinMode (sensorOut, INPUT);
-
+// loop Variablen initialisieren
 int redloop = 0;
 int blueloop = 0;
 int greenloop = 0;
+int i = 0;
+uint64_t diff;
+struct timespec start, end;
 //setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
 //S2 = Low + S3 = High -> blau
 //S2 = High + S3 = High -> grün
-
+while (1)
+{
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
-int i = 0;
-uint64_t diff;
-struct timespec start, end;
+
 // roter Sensor bleibt für mindestens 500ms aktiv
 while (redloop < 50 || i == 2)
 {
@@ -83,6 +86,68 @@ while (redloop < 50 || i == 2)
     // Printing the value on the serial monitor
     diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Rot = %llu \n", (long long unsigned int) diff);
+    //Zähler zurücksetzen für den nächsten Loop
+    i = 0;
+    redloop = 0;
+    
+//blau lesen
+digitalWrite(S2,LOW);
+digitalWrite(S3,HIGH);
+while (blueloop < 50 || i == 2)
+{
+    	
+    //Puls Messung risingedge bis fallingedge ms Messung
+    if (digitalRead (sensorOut) == 1 && i == 0)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    i = 1;
+    }
+    
+    if (digitalRead (sensorOut) == 0 && i == 1)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    i = 2;
+    }
+    redloop = redloop +1;
+    // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
+    delay(10);
+}
+    // Printing the value on the serial monitor
+    diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    printf("Blau = %llu \n", (long long unsigned int) diff);
+    //Zähler zurücksetzen für den nächsten Loop
+    i = 0;
+    blueloop = 0;
+ 
+//grün lesen
+digitalWrite(S2,HIGH);
+digitalWrite(S3,HIGH);
+while (greenloop < 50 || i == 2)
+{
+    	
+    //Puls Messung risingedge bis fallingedge ms Messung
+    if (digitalRead (sensorOut) == 1 && i == 0)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    i = 1;
+    }
+    
+    if (digitalRead (sensorOut) == 0 && i == 1)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    i = 2;
+    }
+    redloop = redloop +1;
+    // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
+    delay(10);
+}
+    // Printing the value on the serial monitor
+    diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    printf("Grün = %llu \n", (long long unsigned int) diff);
+    //Zähler zurücksetzen für den nächsten Loop
+    i = 0;
+    grünloop = 0;
+}
     exit(0);
     
 }
