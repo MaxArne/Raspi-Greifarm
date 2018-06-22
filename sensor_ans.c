@@ -41,9 +41,9 @@ int main(void)
 {
 if (wiringPiSetup() == -1)
     return 1;
-pinMode (S2, Output);
-pinMode (S3, Output);
-pinMode (sensorOut, Input);
+pinMode (S2, OUTPUT);
+pinMode (S3, OUTPUT);
+pinMode (sensorOut, INPUT);
 
 int redloop = 0;
 int blueloop = 0;
@@ -80,7 +80,7 @@ while (redloop < 50 || i=2)
     delay(10);
 }
     // Printing the value on the serial monitor
-    diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    diff = 1000000000 * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
 	printf("Rot = %llu \n", (long long unsigned int) diff);
     exit(0);
     }
