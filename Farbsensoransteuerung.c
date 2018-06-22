@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <wiringPi.h>
+#include <time.h>
+#include <sys/time.h>
 //https://www.electronicshub.org/raspberry-pi-color-sensor-tutorial/
 // Pin Belegung in BCM Nummern
 #define S0        // direct auf Vcc
@@ -8,7 +10,9 @@
 #define S3 24
 #define sensorOut 25
 
-int frequency = 0;
+int frequencyred = 0;
+int frequencyblue = 0;
+int frequencygreen = 0;
 
 int setup(char x0, char y1)
 {
@@ -35,22 +39,28 @@ pinMode (sensorOut, Input);
 
 int main(void)
 {
-
 //setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
 //S2 = Low + S3 = High -> blau
 //S2 = High + S3 = High -> grün
+
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
+while ( )   // bestimmt Anzahl an durchläufen
+    {
+    starttime = 0;
+    endtime = 0;
+    //Puls Messung risingedge bis fallingedge ms Messung
+    if (digitalRead (sensorOut) == 1)
+    frequencyred = frequencyred + 1;
+    
 
-// Reading the output frequency
-frequency = pulseIn(sensorOut, LOW);    //Ersetzen durch Puls Messung risingedge bis fallingedge ms Messung
-// Printing the value on the serial monitor
-print("R= ");		//printing name
-print(frequency);	//printing RED color frequency
-print("  ");
-delay(100);
-
+    // Printing the value on the serial monitor
+    print("R= ");		//printing name
+    print(frequency);	//printing RED color frequency
+    print("  ");
+    delay(100);
+    }
 }
