@@ -59,7 +59,7 @@ digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
 int i = 0;
 uint64_t diff;
-timespec start, end;
+struct timespec start, end;
 // roter Sensor bleibt für mindestens 500ms aktiv
 while (redloop < 50 || i == 2)
 {
