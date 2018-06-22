@@ -50,7 +50,7 @@ int redloop = 0;
 int blueloop = 0;
 int greenloop = 0;
 int i = 0;
-uint64_t diff = 1000000000;
+uint64_t diff = 1000000000;     //für Nanosec
 struct timespec start, end;
 //setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
@@ -59,7 +59,7 @@ struct timespec start, end;
 //S2 = High + S3 = High -> grün
 while (1)
 {
-/*
+
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
@@ -121,7 +121,7 @@ while (blueloop < 50 || i == 2)
     i = 0;
     blueloop = 0;
     diff = 1000000000;
-*/ 
+
 //grün lesen
 digitalWrite(S2,HIGH);
 digitalWrite(S3,HIGH);
