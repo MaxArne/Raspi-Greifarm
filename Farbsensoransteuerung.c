@@ -1,18 +1,16 @@
-#include <stdio.h>
-#include <wiringPi.h>
-#include <time.h>
-#include <sys/time.h>
+#include <stdio.h>      // für printf
+#include <wiringPi.h>   // für Pindefinition
+#include <time.h>       /* für clock_gettime */
+#include <stdint.h>     /* für uint64 definition */
+#include <stdlib.h>     /* für exit() definition */
 //https://www.electronicshub.org/raspberry-pi-color-sensor-tutorial/
 // Pin Belegung in BCM Nummern
+// Zeitmessungen / Pulsebreite: http://ondrej1024.github.io/emond/
 #define S0        // direct auf Vcc
 #define S1        // direct auf Vcc
 #define S2 23
 #define S3 24
 #define sensorOut 25
-
-int frequencyred = 0;
-int frequencyblue = 0;
-int frequencygreen = 0;
 
 int setup(char x0, char y1)
 {
@@ -39,6 +37,9 @@ pinMode (sensorOut, Input);
 
 int main(void)
 {
+int redloop = 0;
+int blueloop = 0;
+int greenloop = 0;
 //setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
@@ -48,19 +49,31 @@ int main(void)
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
-while ( )   // bestimmt Anzahl an durchläufen
-    {
-    starttime = 0;
-    endtime = 0;
+// roter Sensor bleibt für mindestens 500ms aktiv
+while (redloop < 50 || i=2)
+{
+    uint64_t diff;
+	struct timespec start, end;
+	int i = 0;
     //Puls Messung risingedge bis fallingedge ms Messung
-    if (digitalRead (sensorOut) == 1)
-    frequencyred = frequencyred + 1;
+    if (digitalRead (sensorOut) == 1 && i = 0)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    i = 1;
+    }
     
-
+    if (digitalRead (sensorOut) == 0 && i = 1)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    i = 2;
+    }
+    redloop = redloop +1;
+    // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
+    delay(10);
+}
     // Printing the value on the serial monitor
-    print("R= ");		//printing name
-    print(frequency);	//printing RED color frequency
-    print("  ");
-    delay(100);
+    diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+	printf("Rot = %llu \n", (long long unsigned int) diff);
+    exit(0);
     }
 }
