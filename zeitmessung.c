@@ -1,7 +1,5 @@
 /*
- * This program calculates the time required to
- * execute the program specified as its first argument.
- * The time is printed in seconds, on standard out.
+ * Das Programm gibt die Laufzeit aus und dienst als Testbeispiel für die Zeitmessung der Pulse des Sensors
  */
 #include <stdio.h>
 #include <unistd.h>
