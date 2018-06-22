@@ -89,6 +89,7 @@ while (redloop < 50 || i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     redloop = 0;
+    diff = 1000000000;
     
 //blau lesen
 digitalWrite(S2,LOW);
@@ -118,6 +119,7 @@ while (blueloop < 50 || i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     blueloop = 0;
+    diff = 1000000000;
  
 //grün lesen
 digitalWrite(S2,HIGH);
@@ -147,6 +149,7 @@ while (greenloop < 50 || i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     greenloop = 0;
+    diff = 1000000000;
 }
     exit(0);
     
