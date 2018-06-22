@@ -12,6 +12,7 @@
 #define S3 24
 #define sensorOut 25
 
+/*
 int setup(char x0, char y1)
 {
 wiringPiSetup () ;
@@ -34,9 +35,16 @@ pinMode (sensorOut, Input);
 //digitalWrite(S1,y);
 //delay (500);
 }
+*/
 
 int main(void)
 {
+if (wiringPiSetup() == -1)
+    return 1;
+pinMode (S2, Output);
+pinMode (S3, Output);
+pinMode (sensorOut, Input);
+
 int redloop = 0;
 int blueloop = 0;
 int greenloop = 0;
@@ -52,17 +60,17 @@ digitalWrite(S3,LOW);
 // roter Sensor bleibt für mindestens 500ms aktiv
 while (redloop < 50 || i=2)
 {
-    uint64_t diff;
+    	uint64_t diff;
 	struct timespec start, end;
 	int i = 0;
     //Puls Messung risingedge bis fallingedge ms Messung
-    if (digitalRead (sensorOut) == 1 && i = 0)
+    if (digitalRead (sensorOut) == 1 && i == 0)
     {
     clock_gettime(CLOCK_MONOTONIC, &start);
     i = 1;
     }
     
-    if (digitalRead (sensorOut) == 0 && i = 1)
+    if (digitalRead (sensorOut) == 0 && i == 1)
     {
     clock_gettime(CLOCK_MONOTONIC, &end);
     i = 2;
