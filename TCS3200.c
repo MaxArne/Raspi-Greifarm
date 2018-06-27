@@ -1,3 +1,4 @@
+//TCS3200 Farbsensor 
 #include <stdio.h>      // für printf
 #include <wiringPi.h>   // für Pindefinition
 #include <time.h>       /* für clock_gettime */
@@ -12,30 +13,10 @@
 #define S3 24
 #define sensorOut 25
 
-/*
-int setup(char x0, char y1)
-{
-wiringPiSetup () ;
-if (wiringPiSetup() == -1)
-    return 1;
-//Pins als Outputs/Inputs initialiesieren
-// pinMode (S0, Output);
-// pinMode (S1, Output);
-pinMode (S2, Output);
-pinMode (S3, Output);
-pinMode (sensorOut, Input);
-
-//frequency scalling to 2%, 20%, 100% / mit x und y ausgewählen nach Tabelle:
-// x = Low + y = High -> 2%
-// x = High + y = Low -> 20%
-// x = High + y = High -> 100%
-
-//digitalWrite(S0,x);
-//delay (500);
-//digitalWrite(S1,y);
-//delay (500);
-}
-*/
+//frequency scalling to 2%, 20%, 100%
+// S0 = Low + S1 = High -> 2%
+// S0 = High + S1 = Low -> 20%
+// S0 = High + S1 = High -> 100%
 
 int main(void)
 {
@@ -52,11 +33,11 @@ int greenloop = 0;
 int i = 0;
 uint64_t diff = 1000000000;     //für Nanosec
 struct timespec start, end;
-//setup (High,Low);		//Werte für x und y festlegen um scalling einzustellen
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
 //S2 = Low + S3 = High -> blau
 //S2 = High + S3 = High -> grün
+    
 while (1)
 {
 
@@ -65,7 +46,7 @@ digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
 
 // roter Sensor bleibt für mindestens 500ms aktiv
-while (redloop < 50 || i == 2)
+while (/*redloop < 50 ||*/ i == 2)
 {
     	
     //Puls Messung risingedge bis fallingedge ms Messung
@@ -80,22 +61,22 @@ while (redloop < 50 || i == 2)
     clock_gettime(CLOCK_MONOTONIC, &end);
     i = 2;
     }
-    redloop = redloop +1;
-    // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
-    delay(10);
+    //redloop = redloop +1;
+    // wartet 1 ms
+    delay(1);
 }
     // Printing the value on the serial monitor
     diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Rot = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
-    redloop = 0;
+    //redloop = 0;
     diff = 1000000000;
     
 //blau lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,HIGH);
-while (blueloop < 50 || i == 2)
+while (/*blueloop < 50 ||*/ i == 2)
 {
     	
     //Puls Messung risingedge bis fallingedge ms Messung
@@ -110,22 +91,22 @@ while (blueloop < 50 || i == 2)
     clock_gettime(CLOCK_MONOTONIC, &end);
     i = 2;
     }
-    blueloop = blueloop +1;
-    // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
-    delay(10);
+    //blueloop = blueloop +1;
+    // wartet 1 ms
+    delay(1);
 }
     // Printing the value on the serial monitor
     diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Blau = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
-    blueloop = 0;
+    //blueloop = 0;
     diff = 1000000000;
 
 //grün lesen
 digitalWrite(S2,HIGH);
 digitalWrite(S3,HIGH);
-while (greenloop < 50 || i == 2)
+while (/*greenloop < 50 ||*/ i == 2)
 {
     	
     //Puls Messung risingedge bis fallingedge ms Messung
@@ -140,16 +121,16 @@ while (greenloop < 50 || i == 2)
     clock_gettime(CLOCK_MONOTONIC, &end);
     i = 2;
     }
-    greenloop = greenloop +1;
-    // wartet 10 ms um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
-    delay(10);
+    //greenloop = greenloop +1;
+    // wartet 1ms //um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
+    delay(1);
 }
     // Printing the value on the serial monitor
     diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("Gruen = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
-    greenloop = 0;
+    //greenloop = 0;
     diff = 1000000000;
 }
     exit(0);
