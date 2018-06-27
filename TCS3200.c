@@ -37,6 +37,12 @@ struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 //S2 = Low + S3 = Low -> rot
 //S2 = Low + S3 = High -> blau
 //S2 = High + S3 = High -> grün
+
+// Kalibrierung
+printf("Weiß Kal. nach 5 sec");
+delay(5000);
+printf("start");
+  
     
 while (1)
 {
