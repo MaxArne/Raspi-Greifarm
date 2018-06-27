@@ -42,8 +42,108 @@ struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 printf("Weiß Kal. nach 5 sec");
 delay(5000);
 printf("start");
-  
+// Cal = 1 Kalibirierung abgeschlossen
+int Cal = 0;
+// Startwerte für rot, blau, grün
+uint64_t Calred = 0;
+uint64_t Calblue = 0;
+uint64_t Calgreen = 0;
+
+while (Cal == 0)
+{
+
+//rot lesen
+digitalWrite(S2,LOW);
+digitalWrite(S3,LOW);
+
+while (i == 2)
+{
+    	
+    //Puls Messung risingedge bis fallingedge ms Messung
+    if (digitalRead (sensorOut) == 1 && i == 0)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &startred);
+    i = 1;
+    }
     
+    if (digitalRead (sensorOut) == 0 && i == 1)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &endred);
+    i = 2;
+    }
+    //redloop = redloop +1;
+    // wartet 10 ms
+    delay(10);
+}
+    // Impulselängen Berechnung in ns
+    Calred = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
+    //Zähler zurücksetzen für den nächsten Loop
+    i = 0;
+    //redloop = 0;
+    diff = 1000000000;
+    
+//blau lesen
+digitalWrite(S2,LOW);
+digitalWrite(S3,HIGH);
+while (/*blueloop < 50 ||*/ i == 2)
+{
+    	
+    //Puls Messung risingedge bis fallingedge ms Messung
+    if (digitalRead (sensorOut) == 1 && i == 0)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &startblue);
+    i = 1;
+    }
+    
+    if (digitalRead (sensorOut) == 0 && i == 1)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &endblue);
+    i = 2;
+    }
+    //blueloop = blueloop +1;
+    // wartet 10ms
+    delay(10);
+}
+    // Impulselängen Berechnung in ns
+    Calblue = diff * (endblue.tv_sec - startblue.tv_sec) + endblue.tv_nsec - startblue.tv_nsec;
+    //Zähler zurücksetzen für den nächsten Loop
+    i = 0;
+    //blueloop = 0;
+    diff = 1000000000;
+
+//grün lesen
+digitalWrite(S2,HIGH);
+digitalWrite(S3,HIGH);
+while (/*greenloop < 50 ||*/ i == 2)
+{
+    	
+    //Puls Messung risingedge bis fallingedge ms Messung
+    if (digitalRead (sensorOut) == 1 && i == 0)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &startgreen);
+    i = 1;
+    }
+    
+    if (digitalRead (sensorOut) == 0 && i == 1)
+    {
+    clock_gettime(CLOCK_MONOTONIC, &endgreen);
+    i = 2;
+    }
+    //greenloop = greenloop +1;
+    // wartet 10s 
+    delay(10);
+}
+    // Impulselängen Berechnung in ns
+    Calgreen = diff * (endgreen.tv_sec - startgreen.tv_sec) + endgreen.tv_nsec - startgreen.tv_nsec;
+    //Zähler zurücksetzen für den nächsten Loop
+    i = 0;
+    //greenloop = 0;
+    diff = 1000000000;
+    Cal = 1;
+}
+printf("Kalibrierung abgeschlossen");
+printf("Kal rot: %d\n Kal blau: %d\nKal gruen: %d\n",Calred,Calblue,Calgreen);
+
 while (1)
 {
 
