@@ -45,7 +45,6 @@ while (1)
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
 
-// roter Sensor bleibt für mindestens 500ms aktiv
 while (/*redloop < 50 ||*/ i == 2)
 {
     	
