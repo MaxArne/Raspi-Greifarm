@@ -32,7 +32,7 @@ int blueloop = 0;
 int greenloop = 0;
 int i = 0;
 uint64_t diff = 1000000000;     //für Nanosec
-struct timespec start, end;
+struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
 //S2 = Low + S3 = High -> blau
@@ -51,21 +51,21 @@ while (/*redloop < 50 ||*/ i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &startred);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &endred);
     i = 2;
     }
     //redloop = redloop +1;
-    // wartet 1 ms
-    delay(1);
+    // wartet 10 ms
+    delay(10);
 }
-    // Printing the value on the serial monitor
-    diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    // Impulselängen Berechnung in ns
+    diff = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
     printf("Rot = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -81,21 +81,21 @@ while (/*blueloop < 50 ||*/ i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &startblue);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &endblue);
     i = 2;
     }
     //blueloop = blueloop +1;
-    // wartet 1 ms
-    delay(1);
+    // wartet 10ms
+    delay(10);
 }
-    // Printing the value on the serial monitor
-    diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    // Impulselängen Berechnung in ns
+    diff = diff * (endblue.tv_sec - startblue.tv_sec) + endblue.tv_nsec - startblue.tv_nsec;
     printf("Blau = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -111,21 +111,21 @@ while (/*greenloop < 50 ||*/ i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &startgreen);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &endgreen);
     i = 2;
     }
     //greenloop = greenloop +1;
-    // wartet 1ms //um mit 50 Durchläufen ca. 500ms nach rot zu prüfen
-    delay(1);
+    // wartet 10s 
+    delay(10);
 }
-    // Printing the value on the serial monitor
-    diff = diff * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    // Impulselängen Berechnung in ns
+    diff = diff * (endgreen.tv_sec - startgreen.tv_sec) + endgreen.tv_nsec - startgreen.tv_nsec;
     printf("Gruen = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
