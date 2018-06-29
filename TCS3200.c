@@ -12,6 +12,10 @@
 #define S2 23
 #define S3 24
 #define sensorOut 25
+// Startwerte für rot, blau, grün
+#define uint64_t Calred  0
+#define uint64_t Calblue  0
+#define uint64_t Calgreen  0
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
@@ -41,10 +45,7 @@ struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 printf("Weiß Kal. nach 5 sec");
 delay(5000);
 printf("start");
-// Startwerte für rot, blau, grün
-uint64_t Calred = 0;
-uint64_t Calblue = 0;
-uint64_t Calgreen = 0;
+
 //Start der Kalibrierung
 //rot lesen
 digitalWrite(S2,LOW);
