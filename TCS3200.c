@@ -13,9 +13,9 @@
 #define S3 24
 #define sensorOut 25
 // Startwerte für rot, blau, grün
-#define uint64_t Calred  0
-#define uint64_t Calblue  0
-#define uint64_t Calgreen  0
+uint64_t Calred = 0;
+uint64_t Calblue = 0;
+uint64_t Calgreen = 0;
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
