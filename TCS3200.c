@@ -13,9 +13,9 @@
 #define S3 24
 #define sensorOut 25
 // Kalibrierungswerte für rot, blau, grün
-int Calred = 0;
-int Calblue = 0;
-int Calgreen = 0;
+uint64_t Calred = 0;
+uint64_t Calblue = 0;
+uint64_t Calgreen = 0;
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
@@ -32,7 +32,7 @@ pinMode (S3, OUTPUT);
 pinMode (sensorOut, INPUT);
 // loop Variablen initialisieren
 int i = 0;
-int diff = 1000000000;     //für Nanosec
+uint64_t diff = 1000000000;     //für Nanosec
 //Zeitmessung für Pulsweite
 struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 
@@ -122,7 +122,7 @@ while (i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
-}
+
 printf("Kalibrierung abgeschlossen");
 printf("Kal rot: %d \n Kal blau: %d \nKal gruen: %d \n",Calred,Calblue,Calgreen);
 
