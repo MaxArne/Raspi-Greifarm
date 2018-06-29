@@ -124,7 +124,7 @@ while (i == 2)
     diff = 1000000000;
 }
 printf("Kalibrierung abgeschlossen");
-printf("Kal rot: %d\n Kal blau: %d\nKal gruen: %d\n",Calred,Calblue,Calgreen);
+printf("Kal rot: %u \n Kal blau: %u \nKal gruen: %u \n",Calred,Calblue,Calgreen);
 
 //Start der Messung
 while (1)
