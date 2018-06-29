@@ -57,13 +57,13 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &startred);
+    clock_gettime(CLOCK_REALTIME, &startred);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &endred);
+    clock_gettime(CLOCK_REALTIME, &endred);
     i = 2;
     }
 }
@@ -82,13 +82,13 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &startblue);
+    clock_gettime(CLOCK_REALTIME, &startblue);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &endblue);
+    clock_gettime(CLOCK_REALTIME, &endblue);
     i = 2;
     }
 }
@@ -107,13 +107,13 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &startgreen);
+    clock_gettime(CLOCK_REALTIME, &startgreen);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &endgreen);
+    clock_gettime(CLOCK_REALTIME, &endgreen);
     i = 2;
     }
 }
@@ -140,13 +140,13 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &startred);
+    clock_gettime(CLOCK_REALTIME, &startred);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &endred);
+    clock_gettime(CLOCK_REALTIME, &endred);
     i = 2;
     }
 }
@@ -168,13 +168,13 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &startblue);
+    clock_gettime(CLOCK_REALTIME, &startblue);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &endblue);
+    clock_gettime(CLOCK_REALTIME, &endblue);
     i = 2;
     }
 }
@@ -196,13 +196,13 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime(CLOCK_MONOTONIC, &startgreen);
+    clock_gettime(CLOCK_REALTIME, &startgreen);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime(CLOCK_MONOTONIC, &endgreen);
+    clock_gettime(CLOCK_REALTIME, &endgreen);
     i = 2;
     }
 }
