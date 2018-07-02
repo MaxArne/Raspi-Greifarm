@@ -52,7 +52,7 @@ fflush(stdout);
 //rot lesen
 digitalWrite(S2,LOW);
 digitalWrite(S3,LOW);
-
+    
 while (i == 2)
 {
     	
@@ -74,10 +74,11 @@ while (i == 2)
     printf("Rot start_nsec = %ld \n", startred.tv_nsec);
     printf("Rot end_sec = %ld \n", endred.tv_sec);
     printf("Rot end_nsec = %ld \n", endred.tv_nsec);
-    Calred = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
+    Calred = (endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec)/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
+    
     
     
 //blau lesen
@@ -100,7 +101,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    Calblue = diff * (endblue.tv_sec - startblue.tv_sec) + endblue.tv_nsec - startblue.tv_nsec;
+    Calblue = (endblue.tv_sec - startblue.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec)/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
@@ -125,7 +126,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    Calgreen = diff * (endgreen.tv_sec - startgreen.tv_sec) + endgreen.tv_nsec - startgreen.tv_nsec;
+    Calgreen = (endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec)/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
@@ -158,7 +159,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    diff = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
+    diff = (endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec)/diff;
     diff = diff/Calred;
     printf("Rot start_sec = %ld \n", startred.tv_sec);
     printf("Rot start_nsec = %ld \n", startred.tv_nsec);
@@ -190,7 +191,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    diff = diff * (endblue.tv_sec - startblue.tv_sec) + endblue.tv_nsec - startblue.tv_nsec;
+    diff = (endblue.tv_sec - startblue.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec)/diff;
     diff = diff/Calblue;
     printf("Blau = %ld \n", diff);
     //Zähler zurücksetzen für den nächsten Loop
@@ -218,7 +219,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    diff = diff * (endgreen.tv_sec - startgreen.tv_sec) + endgreen.tv_nsec - startgreen.tv_nsec;
+    diff = (endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec)/diff;
     diff = diff/Calgreen;
     printf("Gruen = %ld \n", diff);
     //Zähler zurücksetzen für den nächsten Loop
