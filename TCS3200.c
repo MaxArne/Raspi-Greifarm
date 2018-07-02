@@ -2,8 +2,10 @@
 #include <stdio.h>      // für printf
 #include <wiringPi.h>   // für Pindefinition
 #include <time.h>       /* für clock_gettime */
+#include <sys/time.h>   // für gettimeofday()
 #include <stdint.h>     /* für uint64 definition */
 #include <stdlib.h>     /* für exit() definition */
+#include <unistd.h>
 //https://www.electronicshub.org/raspberry-pi-color-sensor-tutorial/
 // Pin Belegung in BCM Nummern
 // Zeitmessungen / Pulsebreite: http://ondrej1024.github.io/emond/
@@ -32,9 +34,9 @@ pinMode (S3, OUTPUT);
 pinMode (sensorOut, INPUT);
 // loop Variablen initialisieren
 int i = 0;
-uint64_t diff = 1000000000;     //für Nanosec
+long diff = 1000000000;     //für Nanosec
 //Zeitmessung für Pulsweite
-struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
+struct timeval startred, endred, startblue, endblue,startgreen, endgreen;
 
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
