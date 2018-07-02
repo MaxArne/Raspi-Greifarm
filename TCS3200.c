@@ -44,7 +44,7 @@ struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 // Kalibrierung
 printf("Weiß Kal. nach 5 sec\n");
 delay(5000);
-printf("start"\n);
+printf("start\n");
 fflush(stdout);
 //Start der Kalibrierung
 //rot lesen
