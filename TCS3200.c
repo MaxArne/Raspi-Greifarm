@@ -15,9 +15,9 @@
 #define S3 24
 #define sensorOut 25
 // Kalibrierungswerte für rot, blau, grün
-uint64_t Calred = 0;
-uint64_t Calblue = 0;
-uint64_t Calgreen = 0;
+long Calred = 0;
+long Calblue = 0;
+long Calgreen = 0;
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
@@ -70,10 +70,10 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    printf("Rot start_sec = %llu \n", (long long unsigned int) startred.tv_sec);
-    printf("Rot start_nsec = %llu \n", (long long unsigned int) startred.tv_nsec);
-    printf("Rot end_sec = %llu \n", (long long unsigned int) endred.tv_sec);
-    printf("Rot end_nsec = %llu \n", (long long unsigned int) endred.tv_nsec);
+    printf("Rot start_sec = %ld \n",  startred.tv_sec);
+    printf("Rot start_nsec = %ld \n", startred.tv_nsec);
+    printf("Rot end_sec = %ld \n", endred.tv_sec);
+    printf("Rot end_nsec = %ld \n", endred.tv_nsec);
     Calred = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -131,7 +131,7 @@ while (i == 2)
     diff = 1000000000;
 
 printf("Kalibrierung abgeschlossen\n");
-printf("Kal rot: %d \n Kal blau: %d \nKal gruen: %d \n",Calred,Calblue,Calgreen);
+printf("Kal rot: %ld \n Kal blau: %ld \nKal gruen: %ld \n",Calred,Calblue,Calgreen);
 
 //Start der Messung
 while (1)
@@ -160,10 +160,10 @@ while (i == 2)
     // Impulselängen Berechnung in ns
     diff = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
     diff = diff/Calred;
-    printf("Rot start_sec = %llu \n", (long long unsigned int) startred.tv_sec);
-    printf("Rot start_nsec = %llu \n", (long long unsigned int) startred.tv_nsec);
-    printf("Rot end_sec = %llu \n", (long long unsigned int) endred.tv_sec);
-    printf("Rot end_nsec = %llu \n", (long long unsigned int) endred.tv_nsec);
+    printf("Rot start_sec = %ld \n", startred.tv_sec);
+    printf("Rot start_nsec = %ld \n", startred.tv_nsec);
+    printf("Rot end_sec = %ld \n", endred.tv_sec);
+    printf("Rot end_nsec = %ld \n", endred.tv_nsec);
     printf("Rot = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -192,7 +192,7 @@ while (i == 2)
     // Impulselängen Berechnung in ns
     diff = diff * (endblue.tv_sec - startblue.tv_sec) + endblue.tv_nsec - startblue.tv_nsec;
     diff = diff/Calblue;
-    printf("Blau = %llu \n", (long long unsigned int) diff);
+    printf("Blau = %ld \n", diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
@@ -220,7 +220,7 @@ while (i == 2)
     // Impulselängen Berechnung in ns
     diff = diff * (endgreen.tv_sec - startgreen.tv_sec) + endgreen.tv_nsec - startgreen.tv_nsec;
     diff = diff/Calgreen;
-    printf("Gruen = %llu \n", (long long unsigned int) diff);
+    printf("Gruen = %ld \n", diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
