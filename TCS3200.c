@@ -71,7 +71,7 @@ while (i == 2)
     printf("Rot start_sec = %llu \n", (long long unsigned int) startred.tv_sec);
     printf("Rot start_nsec = %llu \n", (long long unsigned int) startred.tv_nsec);
     printf("Rot end_sec = %llu \n", (long long unsigned int) endred.tv_sec);
-    printf("Rot start_nsec = %llu \n", (long long unsigned int) endred.tv_nsec);
+    printf("Rot end_nsec = %llu \n", (long long unsigned int) endred.tv_nsec);
     Calred = diff * (endred.tv_sec - startred.tv_sec) + endred.tv_nsec - startred.tv_nsec;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
@@ -160,7 +160,7 @@ while (i == 2)
     printf("Rot start_sec = %llu \n", (long long unsigned int) startred.tv_sec);
     printf("Rot start_nsec = %llu \n", (long long unsigned int) startred.tv_nsec);
     printf("Rot end_sec = %llu \n", (long long unsigned int) endred.tv_sec);
-    printf("Rot start_nsec = %llu \n", (long long unsigned int) endred.tv_nsec);
+    printf("Rot end_nsec = %llu \n", (long long unsigned int) endred.tv_nsec);
     printf("Rot = %llu \n", (long long unsigned int) diff);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
