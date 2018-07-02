@@ -168,7 +168,7 @@ while (i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
-    delay(100);
+    delay(10000);
     
 //blau lesen
 digitalWrite(S2,LOW);
@@ -196,7 +196,7 @@ while (i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
-    delay(100);
+    delay(10000);
 
 //grün lesen
 digitalWrite(S2,HIGH);
@@ -224,7 +224,7 @@ while (i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
-    delay(100);
+    delay(10000);
 }
     exit(0);
     
