@@ -42,7 +42,7 @@ struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 //S2 = High + S3 = High -> grün
 
 // Kalibrierung
-printf("Weiß Kal. nach 5 sec"\n);
+printf("Weiß Kal. nach 5 sec\n");
 delay(5000);
 printf("start"\n);
 fflush(stdout);
@@ -76,6 +76,7 @@ while (i == 2)
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1000000000;
+    
     
 //blau lesen
 digitalWrite(S2,LOW);
@@ -127,7 +128,7 @@ while (i == 2)
     i = 0;
     diff = 1000000000;
 
-printf("Kalibrierung abgeschlossen"\n);
+printf("Kalibrierung abgeschlossen\n");
 printf("Kal rot: %d \n Kal blau: %d \nKal gruen: %d \n",Calred,Calblue,Calgreen);
 
 //Start der Messung
