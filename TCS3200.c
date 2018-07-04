@@ -14,10 +14,11 @@
 #define S2 23
 #define S3 24
 #define sensorOut 25
+#define BILLION  1000000000L;
 // Kalibrierungswerte für rot, blau, grün
-long Calred = 0;
-long Calblue = 0;
-long Calgreen = 0;
+double Calred = 0;
+double Calblue = 0;
+double Calgreen = 0;
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
@@ -34,7 +35,7 @@ pinMode (S3, OUTPUT);
 pinMode (sensorOut, INPUT);
 // loop Variablen initialisieren
 int i = 0;
-long diff = 1000000;     //für Nanosec
+//uint_64 diff = 1000000;     //für Nanosec
 //Zeitmessung für Pulsweite
 struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 
@@ -74,7 +75,7 @@ while (i == 2)
     //printf("Rot start_usec = %lu \n", startred.tv_nsec);
     //printf("Rot end_sec = %lu \n", endred.tv_sec);
     //printf("Rot end_usec = %lu \n", endred.tv_nsec);
-    Calred = ((endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec))/diff;
+    Calred = ((endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec))/BILLION;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
@@ -102,7 +103,7 @@ while (i == 2)
 }
 }
     // Impulselängen Berechnung in ns
-    Calblue = ((endblue.tv_sec - startblue.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec))/diff;
+    Calblue = ((endblue.tv_sec - startblue.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec))/BILLION;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
@@ -127,7 +128,7 @@ while (i == 2)
 }
 }
     // Impulselängen Berechnung in ns
-    Calgreen = ((endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec))/diff;
+    Calgreen = ((endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec))/BILLION;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
