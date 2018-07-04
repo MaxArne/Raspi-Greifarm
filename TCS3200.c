@@ -36,7 +36,7 @@ pinMode (sensorOut, INPUT);
 int i = 0;
 long diff = 1;     //für Nanosec
 //Zeitmessung für Pulsweite
-struct timeval startred, endred, startblue, endblue,startgreen, endgreen;
+struct timespec startred, endred, startblue, endblue,startgreen, endgreen;
 
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
@@ -59,22 +59,22 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    gettimeofday(&startred, NULL);
+    clock_gettime( CLOCK_REALTIME, &startred);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    gettimeofday(&endred, NULL);
+    clock_gettime( CLOCK_REALTIME, &endred);
     i = 2;
-    }
+}
 }
     // Impulselängen Berechnung in ns
     printf("Rot start_sec = %lu \n",  startred.tv_sec);
     printf("Rot start_usec = %lu \n", startred.tv_usec);
     printf("Rot end_sec = %lu \n", endred.tv_sec);
     printf("Rot end_usec = %lu \n", endred.tv_usec);
-    Calred = (endred.tv_sec - startred.tv_sec) + (endred.tv_usec - startred.tv_usec)/diff;
+    Calred = ((endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec))/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1;
@@ -88,20 +88,21 @@ while (i == 2)
 {
     	
     //Puls Messung risingedge bis fallingedge ms Messung
+    //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    gettimeofday(&startblue, NULL);
+    clock_gettime( CLOCK_REALTIME, &startblue);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    gettimeofday(&endblue, NULL);
+    clock_gettime( CLOCK_REALTIME, &endblue);
     i = 2;
-    }
+}
 }
     // Impulselängen Berechnung in ns
-    Calblue = (endblue.tv_sec - startblue.tv_sec) + (endblue.tv_usec - startblue.tv_usec)/diff;
+    Calblue = ((endblue.tv_sec - startblue.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec))/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1;
@@ -115,25 +116,25 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    gettimeofday(&startgreen, NULL);
+    clock_gettime( CLOCK_REALTIME, &startgreen);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    gettimeofday(&endgreen, NULL);
+    clock_gettime( CLOCK_REALTIME, &endgreen);
     i = 2;
-    }
+}
 }
     // Impulselängen Berechnung in ns
-    Calgreen = (endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_usec - startgreen.tv_usec)/diff;
+    Calgreen = ((endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec))/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
     diff = 1;
 
 printf("Kalibrierung abgeschlossen\n");
 printf("Kal rot: %lu \n Kal blau: %lu \nKal gruen: %lu \n",Calred,Calblue,Calgreen);
-
+/*
 //Start der Messung
 while (1)
 {
@@ -227,6 +228,7 @@ while (i == 2)
     diff = 1;
     delay(10000);
 }
+*/
     exit(0);
     
 }
