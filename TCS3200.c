@@ -134,7 +134,7 @@ while (i == 2)
 
 
 printf("Kalibrierung abgeschlossen\n");
-printf("Kal rot: %lu \n Kal blau: %lu \nKal gruen: %lu \n",Calred,Calblue,Calgreen);
+printf("Kal rot: %lf \n Kal blau: %lf \nKal gruen: %lf \n",Calred,Calblue,Calgreen);
 /*
 //Start der Messung
 while (1)
