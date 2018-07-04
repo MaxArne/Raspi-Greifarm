@@ -76,7 +76,7 @@ while (i == 2)
     //printf("Rot start_usec = %lu \n", startred.tv_nsec);
     //printf("Rot end_sec = %lu \n", endred.tv_sec);
     //printf("Rot end_usec = %lu \n", endred.tv_nsec);
-    Calred = /*((endred.tv_sec - startred.tv_sec) + */(endred.tv_nsec - startred.tv_nsec);
+    Calred = ((endred.tv_sec - startred.tv_sec) +(endred.tv_nsec - startred.tv_nsec)*BILLION);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
@@ -104,7 +104,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    Calblue = /*((endred.tv_sec - startred.tv_sec) + */(endblue.tv_nsec - startblue.tv_nsec);
+    Calblue = ((endred.tv_sec - startred.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec)*BILLION);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
@@ -129,7 +129,7 @@ while (i == 2)
     }
 }
     // Impulselängen Berechnung in ns
-    Calgreen = /*((endred.tv_sec - startred.tv_sec) + */(endgreen.tv_nsec - startgreen.tv_nsec);
+    Calgreen = ((endred.tv_sec - startred.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec)*BILLION);
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
