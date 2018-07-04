@@ -36,7 +36,7 @@ pinMode (sensorOut, INPUT);
 int i = 0;
 long diff = 1;     //für Nanosec
 //Zeitmessung für Pulsweite
-struct timeval (startred, endred, startblue, endblue,startgreen, endgreen);
+struct timeval startred, endred, startblue, endblue,startgreen, endgreen;
 
 //Auslesen der Farben Tabelle
 //S2 = Low + S3 = Low -> rot
