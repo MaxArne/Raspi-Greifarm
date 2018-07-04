@@ -71,9 +71,9 @@ while (i == 2)
 }
     // Impulselängen Berechnung in ns
     printf("Rot start_sec = %lu \n",  startred.tv_sec);
-    printf("Rot start_usec = %lu \n", startred.tv_usec);
+    printf("Rot start_usec = %lu \n", startred.tv_nsec);
     printf("Rot end_sec = %lu \n", endred.tv_sec);
-    printf("Rot end_usec = %lu \n", endred.tv_usec);
+    printf("Rot end_usec = %lu \n", endred.tv_nsec);
     Calred = ((endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec))/diff;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
