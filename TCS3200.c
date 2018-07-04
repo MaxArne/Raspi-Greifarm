@@ -14,7 +14,7 @@
 #define S2 23
 #define S3 24
 #define sensorOut 25
-#define BILLION  1000000000L;
+#define BILLION  1000000000L
 // Kalibrierungswerte für rot, blau, grün
 double Calred = 0;
 double Calblue = 0;
