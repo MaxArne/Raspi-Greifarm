@@ -16,9 +16,9 @@
 #define sensorOut 25
 #define BILLION  1000000000L;
 // Kalibrierungswerte für rot, blau, grün
-double Calred = 0;
-double Calblue = 0;
-double Calgreen = 0;
+uint64_t Calred = 0;
+uint64_t Calblue = 0;
+uint64_t Calgreen = 0;
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
@@ -134,7 +134,7 @@ while (i == 2)
 
 
 printf("Kalibrierung abgeschlossen\n");
-printf("Kal rot: %lf \n Kal blau: %lf \nKal gruen: %lf \n",Calred,Calblue,Calgreen);
+printf("Kal rot: %llu \n Kal blau: %llu \nKal gruen: %llu \n",(long long unsigned int)Calred,(long long unsigned int)Calblue,(long long unsigned int)Calgreen);
 /*
 //Start der Messung
 while (1)
