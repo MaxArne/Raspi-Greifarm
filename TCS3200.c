@@ -16,9 +16,9 @@
 #define sensorOut 25
 #define BILLION  1000000000L;
 // Kalibrierungswerte für rot, blau, grün
-uint64_t Calred = 0;
-uint64_t Calblue = 0;
-uint64_t Calgreen = 0;
+double Calred = 0;
+double Calblue = 0;
+double Calgreen = 0;
 
 //frequency scalling to 2%, 20%, 100%
 // S0 = Low + S1 = High -> 2%
@@ -68,8 +68,9 @@ while (i == 2)
     {
     clock_gettime( CLOCK_REALTIME, &endred);
     i = 2;
+    }
 }
-}
+
     // Impulselängen Berechnung in ns
     //printf("Rot start_sec = %lu \n",  startred.tv_sec);
     //printf("Rot start_usec = %lu \n", startred.tv_nsec);
@@ -100,7 +101,7 @@ while (i == 2)
     {
     clock_gettime( CLOCK_REALTIME, &endblue);
     i = 2;
-}
+    }
 }
     // Impulselängen Berechnung in ns
     Calblue = /*((endred.tv_sec - startred.tv_sec) + */(endblue.tv_nsec - startblue.tv_nsec);
@@ -125,7 +126,7 @@ while (i == 2)
     {
     clock_gettime( CLOCK_REALTIME, &endgreen);
     i = 2;
-}
+    }
 }
     // Impulselängen Berechnung in ns
     Calgreen = /*((endred.tv_sec - startred.tv_sec) + */(endgreen.tv_nsec - startgreen.tv_nsec);
@@ -134,7 +135,7 @@ while (i == 2)
 
 
 printf("Kalibrierung abgeschlossen\n");
-printf("Kal rot: %llu \n Kal blau: %llu \nKal gruen: %llu \n",(long long unsigned int)Calred,(long long unsigned int)Calblue,(long long unsigned int)Calgreen);
+printf("Kal rot: %lf \n Kal blau: %lf \nKal gruen: %lf \n",Calred,Calblue,Calgreen);
 /*
 //Start der Messung
 while (1)
