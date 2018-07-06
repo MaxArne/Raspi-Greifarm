@@ -50,6 +50,10 @@ int main(void) {
       fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
       return 1;
   }
+   
+  for (i=50, i==0,i--);
+   
+   
 
   // display counter value every second.
   while ( 1 ) {
