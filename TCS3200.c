@@ -11,9 +11,9 @@
 // Zeitmessungen / Pulsebreite: http://ondrej1024.github.io/emond/
 #define S0        // direct auf Vcc
 #define S1        // direct auf Vcc
-#define S2 23
-#define S3 24
-#define sensorOut 25
+#define S2 4
+#define S3 5
+#define sensorOut 6
 #define BILLION  1000000000L
 // Kalibrierungswerte für rot, blau, grün
 double Calred = 0;
