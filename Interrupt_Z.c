@@ -28,7 +28,7 @@ double Calgreen = 0;
 // Use GPIO Pin 17, which is Pin 0 for wiringPi library
 
 
-
+//Interrupt Bsp.: http://www.science.smith.edu/dftwiki/index.php/Tutorial:_Interrupt-Driven_Event-Counter_on_the_Raspberry_Pi
 // the event counter 
 volatile int eventCounter = 0;
 
