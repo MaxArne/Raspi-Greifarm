@@ -35,7 +35,7 @@ int main(void)
       i=1;
       wiringPiISR (i, INT_EDGE_FALLING, &myInterrupt);
       clock_gettime( CLOCK_MONOTONIC, &end);
-      end = (end.tv_sec + ((double)end.tv_nsec/1000000000));
+      endtime = (end.tv_sec + ((double)end.tv_nsec/1000000000));
       timer = endtime-starttime;
       
       printf("Interruptcounter: %d\n",eventCounter);
