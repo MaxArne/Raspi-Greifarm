@@ -137,7 +137,7 @@ while (i == 2)
     printf("Blau start_nsec = %.9f \n", ((double) startred.tv_nsec/BILLION));
     printf("Blau end_sec = %lld \n",(long long int) endred.tv_sec);
     printf("Blau end_nsec = %.9f \n",((double) endred.tv_nsec/BILLION));
-    Calgreen = ((endgree.tv_sec + ((double)endgreen.tv_nsec/1000000000)) - (startgreen.tv_sec + ((double)startgreen.tv_nsec/1000000000))) ;
+    Calgreen = ((endgreen.tv_sec + ((double)endgreen.tv_nsec/1000000000)) - (startgreen.tv_sec + ((double)startgreen.tv_nsec/1000000000))) ;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
