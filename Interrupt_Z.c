@@ -1,18 +1,18 @@
-#include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <stdlib.h>
-#include <wiringPi.h>
+#include <stdio.h>      // für printf
+#include <wiringPi.h>   // für Pindefinition
+#include <time.h>       /* für clock_gettime */
+#include <sys/time.h>   // für gettimeofday()
+#include <stdint.h>     /* für uint64 definition */
+#include <stdlib.h>     /* für exit() definition */
+#include <unistd.h>
 
 //S0       direct auf Vcc
 //S1       direct auf Vcc
 #define S2 4
 #define S3 5
 #define sensorOut 0
-
-pinMode (S2, OUTPUT);
-pinMode (S3, OUTPUT);
-pinMode (sensorOut, INPUT);
 
 // Kalibrierungswerte für rot, blau, grün
 double Calred = 0;
@@ -45,6 +45,9 @@ int main(void) {
       fprintf (stderr, "Unable to setup wiringPi: %s\n", strerror (errno));
       return 1;
   }
+pinMode (S2, OUTPUT);
+pinMode (S3, OUTPUT);
+pinMode (sensorOut, INPUT);
 
   // set Pin 17/0 generate an interrupt on high-to-low transitions
   // and attach myInterrupt() to the interrupt
