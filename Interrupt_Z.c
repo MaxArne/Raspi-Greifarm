@@ -31,7 +31,9 @@ double Calgreen = 0;
 //Interrupt Bsp.: http://www.science.smith.edu/dftwiki/index.php/Tutorial:_Interrupt-Driven_Event-Counter_on_the_Raspberry_Pi
 // the event counter 
 volatile int eventCounter = 0;
-
+struct timespec tim, tim2;
+   tim.tv_sec = 0;
+   tim.tv_nsec = 1000000;
 // myInterrupt:  called every time an event occurs
 void myInterrupt(void) {
    eventCounter++;
@@ -46,21 +48,25 @@ int main(void) {
 
   // set Pin 17/0 generate an interrupt on high-to-low transitions
   // and attach myInterrupt() to the interrupt
-  if ( wiringPiISR (BUTTON_PIN, INT_EDGE_FALLING, &myInterrupt) < 0 ) {
-      fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
+  
+   if ( wiringPiISR (sensorOut, INT_EDGE_FALLING, &myInterrupt) && i <=500 ) 
+  {
+      
       return 1;
   }
    
-  for (i=50, i==0,i--);
-   
-   
-
   // display counter value every second.
-  while ( 1 ) {
+  //clock_gettime(clk_id, &start);
+  //starttime = (start.tv_sec + ((double)start.tv_nsec/1000000000));
+  //500ms essung
+   while ( i <= 500 ) 
+  {
     printf( "%d\n", eventCounter );
-    eventCounter = 0;
-    delay( 1000 ); // wait 1 second
+    nanosleep(&tim,&tim2);
+    i++;
   }
-
+  Calred = ((eventCounter/500)/2);
+  printf ("Calred:%.9f\n",Calred)
+  eventCounter = 0;
   return 0;
 }
