@@ -14,7 +14,7 @@
 #define S2 4
 #define S3 5
 #define sensorOut 6
-#define BILLION  1000000000L
+#define BILLION  1000000000
 // Kalibrierungswerte für rot, blau, grün
 double Calred = 0;
 double Calblue = 0;
@@ -60,23 +60,23 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime( CLOCK_REALTIME, &startred);
+    clock_gettime( CLOCK_MONOTONIC, &startred);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime( CLOCK_REALTIME, &endred);
+    clock_gettime( CLOCK_MONOTONIC, &endred);
     i = 2;
     }
 }
 
     // Impulselängen Berechnung in ns
-    //printf("Rot start_sec = %lu \n",  startred.tv_sec);
-    //printf("Rot start_usec = %lu \n", startred.tv_nsec);
-    //printf("Rot end_sec = %lu \n", endred.tv_sec);
-    //printf("Rot end_usec = %lu \n", endred.tv_nsec);
-    Calred = ((endred.tv_sec - startred.tv_sec) +(endred.tv_nsec - startred.tv_nsec)*BILLION);
+    printf("Rot start_sec = %lld \n", (long long int) startred.tv_sec);
+    printf("Rot start_nsec = %.9f \n", ((double) startred.tv_nsec/BILLION));
+    printf("Rot end_sec = %lld \n",(long long int) endred.tv_sec);
+    printf("Rot end_nsec = %.9f \n",((double) endred.tv_nsec/BILLION));
+    Calred = ((endred.tv_sec + ((double)endred.tv_nsec/1000000000)) - (startred.tv_sec + ((double)startred.tv_nsec/1000000000))) ;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
@@ -93,18 +93,22 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime( CLOCK_REALTIME, &startblue);
+    clock_gettime( CLOCK_MONOTONIC, &startblue);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime( CLOCK_REALTIME, &endblue);
+    clock_gettime( CLOCK_MONOTONIC, &endblue);
     i = 2;
     }
 }
     // Impulselängen Berechnung in ns
-    Calblue = ((endred.tv_sec - startred.tv_sec) + (endblue.tv_nsec - startblue.tv_nsec)*BILLION);
+    printf("Blau start_sec = %lld \n", (long long int) startblue.tv_sec);
+    printf("Blau start_nsec = %.9f \n", ((double) startblue.tv_nsec/BILLION));
+    printf("Blau end_sec = %lld \n",(long long int) endblue.tv_sec);
+    printf("Blau end_nsec = %.9f \n",((double) endblue.tv_nsec/BILLION));
+    Calblue = ((endblue.tv_sec + ((double)endblue.tv_nsec/1000000000)) - (startblue.tv_sec + ((double)startblue.tv_nsec/1000000000))) ;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
@@ -118,119 +122,26 @@ while (i == 2)
     //Puls Messung risingedge bis fallingedge ms Messung
     if (digitalRead (sensorOut) == 1 && i == 0)
     {
-    clock_gettime( CLOCK_REALTIME, &startgreen);
+    clock_gettime( CLOCK_MONOTONIC, &startgreen);
     i = 1;
     }
     
     if (digitalRead (sensorOut) == 0 && i == 1)
     {
-    clock_gettime( CLOCK_REALTIME, &endgreen);
+    clock_gettime( CLOCK_MONOTONIC, &endgreen);
     i = 2;
     }
 }
     // Impulselängen Berechnung in ns
-    Calgreen = ((endred.tv_sec - startred.tv_sec) + (endgreen.tv_nsec - startgreen.tv_nsec)*BILLION);
+    printf("Blau start_sec = %lld \n", (long long int) startred.tv_sec);
+    printf("Blau start_nsec = %.9f \n", ((double) startred.tv_nsec/BILLION));
+    printf("Blau end_sec = %lld \n",(long long int) endred.tv_sec);
+    printf("Blau end_nsec = %.9f \n",((double) endred.tv_nsec/BILLION));
+    Calgreen = ((endgree.tv_sec + ((double)endgreen.tv_nsec/1000000000)) - (startgreen.tv_sec + ((double)startgreen.tv_nsec/1000000000))) ;
     //Zähler zurücksetzen für den nächsten Loop
     i = 0;
 
 
 printf("Kalibrierung abgeschlossen\n");
-printf("Kal rot: %lf \n Kal blau: %lf \nKal gruen: %lf \n",Calred,Calblue,Calgreen);
-/*
-//Start der Messung
-while (1)
-{
-
-//rot lesen
-digitalWrite(S2,LOW);
-digitalWrite(S3,LOW);
-
-while (i == 2)
-{
-    	
-    //Puls Messung risingedge bis fallingedge ms Messung
-    if (digitalRead (sensorOut) == 1 && i == 0)
-    {
-    gettimeofday(&startred, NULL);
-    i = 1;
-    }
-    
-    if (digitalRead (sensorOut) == 0 && i == 1)
-    {
-    gettimeofday(&endred, NULL);
-    i = 2;
-    }
-}
-    // Impulselängen Berechnung in ns
-    diff = (endred.tv_sec - startred.tv_sec) + (endred.tv_usec - startred.tv_usec)/diff;
-    diff = diff/Calred;
-    printf("Rot start_sec = %lu \n", startred.tv_sec);
-    printf("Rot start_usec = %lu \n", startred.tv_usec);
-    printf("Rot end_sec = %lu \n", endred.tv_sec);
-    printf("Rot end_usec = %lu \n", endred.tv_usec);
-    printf("Rot = %llu \n", (long long unsigned int) diff);
-    //Zähler zurücksetzen für den nächsten Loop
-    i = 0;
-    diff = 1;
-    delay(10000);
-    
-//blau lesen
-digitalWrite(S2,LOW);
-digitalWrite(S3,HIGH);
-while (i == 2)
-{
-    	
-    //Puls Messung risingedge bis fallingedge ms Messung
-    if (digitalRead (sensorOut) == 1 && i == 0)
-    {
-    gettimeofday(&startblue, NULL);
-    i = 1;
-    }
-    
-    if (digitalRead (sensorOut) == 0 && i == 1)
-    {
-    gettimeofday(&startblue, NULL);
-    i = 2;
-    }
-}
-    // Impulselängen Berechnung in ns
-    diff = (endblue.tv_sec - startblue.tv_sec) + (endblue.tv_usec - startblue.tv_usec)/diff;
-    diff = diff/Calblue;
-    printf("Blau = %lu \n", diff);
-    //Zähler zurücksetzen für den nächsten Loop
-    i = 0;
-    diff = 1;
-    delay(10000);
-
-//grün lesen
-digitalWrite(S2,HIGH);
-digitalWrite(S3,HIGH);
-while (i == 2)
-{
-    	
-    //Puls Messung risingedge bis fallingedge ms Messung
-    if (digitalRead (sensorOut) == 1 && i == 0)
-    {
-    gettimeofday(&startgreen, NULL);
-    i = 1;
-    }
-    
-    if (digitalRead (sensorOut) == 0 && i == 1)
-    {
-    gettimeofday(&endgreen, NULL);
-    i = 2;
-    }
-}
-    // Impulselängen Berechnung in ns
-    diff = (endgreen.tv_sec - startgreen.tv_sec) + (endgreen.tv_usec - startgreen.tv_usec)/diff;
-    diff = diff/Calgreen;
-    printf("Gruen = %lu \n", diff);
-    //Zähler zurücksetzen für den nächsten Loop
-    i = 0;
-    diff = 1;
-    delay(10000);
-}
-*/
-    exit(0);
-    
+printf("Kal rot: %.9f \n Kal blau: %.9f \nKal gruen: %.9f \n",Calred,Calblue,Calgreen);
 }
