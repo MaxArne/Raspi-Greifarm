@@ -17,6 +17,13 @@ void myInterrupt(void) {
 
 int main(void) 
 {
+   
+   {
+  // sets up the wiringPi library
+  if (wiringPiSetup () < 0) {
+      fprintf (stderr, "Unable to setup wiringPi: %s\n", strerror (errno));
+      return 1;
+}
   
   // set Pin 17/0 generate an interrupt on high-to-low transitions
   // and attach myInterrupt() to the interrupt
