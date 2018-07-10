@@ -62,8 +62,10 @@ struct timespec tim, tim2;
   // display counter value every second.
   //clock_gettime(clk_id, &start);
   //starttime = (start.tv_sec + ((double)start.tv_nsec/1000000000));
-  //500ms essung
-   while ( i <= 500 ) 
+  //500ms Messung Rot
+  digitalWrite(S2,LOW);
+  digitalWrite(S3,LOW);
+  while ( i <= 500 ) 
   {
     printf( "%d\n", eventCounter );
     nanosleep(&tim,&tim2);
@@ -72,5 +74,34 @@ struct timespec tim, tim2;
   Calred = ((eventCounter/500)/2);
   printf ("Calred:%.9f\n",Calred);
   eventCounter = 0;
+  i = 0;
+  
+  //500ms Messung Blau
+  digitalWrite(S2,LOW);
+  digitalWrite(S3,HIGH);
+  while ( i <= 500 ) 
+  {
+    printf( "%d\n", eventCounter );
+    nanosleep(&tim,&tim2);
+    i++;
+  }
+  Calblue = ((eventCounter/500)/2);
+  printf ("Calblue:%.9f\n",Calblue);
+  eventCounter = 0;
+  i = 0;
+   
+   //500ms Messung Grün
+  digitalWrite(S2,HIGH);
+  digitalWrite(S3,HIGH);
+  while ( i <= 500 ) 
+  {
+    printf( "%d\n", eventCounter );
+    nanosleep(&tim,&tim2);
+    i++;
+  }
+  Calgreen = ((eventCounter/500)/2);
+  printf ("Calgreen:%.9f\n",Calgreen);
+  eventCounter = 0;
+  i = 0;
   return 0;
 }
