@@ -31,9 +31,7 @@ double Calgreen = 0;
 //Interrupt Bsp.: http://www.science.smith.edu/dftwiki/index.php/Tutorial:_Interrupt-Driven_Event-Counter_on_the_Raspberry_Pi
 // the event counter 
 volatile int eventCounter = 0;
-struct timespec tim, tim2;
-   tim.tv_sec = 0;
-   tim.tv_nsec = 1000000;
+int i = 0;
 // myInterrupt:  called every time an event occurs
 void myInterrupt(void) {
    eventCounter++;
@@ -49,10 +47,13 @@ pinMode (S2, OUTPUT);
 pinMode (S3, OUTPUT);
 pinMode (sensorOut, INPUT);
 
+struct timespec tim, tim2;
+   tim.tv_sec = 0;
+   tim.tv_nsec = 1000000;
   // set Pin 17/0 generate an interrupt on high-to-low transitions
   // and attach myInterrupt() to the interrupt
   
-   if ( wiringPiISR (sensorOut, INT_EDGE_FALLING, &myInterrupt) && i <=500 ) 
+   if ( wiringPiISR (sensorOut, INT_EDGE_FALLING, &myInterrupt) < 0 ) 
   {
       
       return 1;
@@ -69,7 +70,7 @@ pinMode (sensorOut, INPUT);
     i++;
   }
   Calred = ((eventCounter/500)/2);
-  printf ("Calred:%.9f\n",Calred)
+  printf ("Calred:%.9f\n",Calred);
   eventCounter = 0;
   return 0;
 }
