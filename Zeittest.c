@@ -1,75 +1,47 @@
-#include <stdio.h>      // für printf
-#include <wiringPi.h>   // für Pindefinition
-#include <time.h>       /* für clock_gettime */
-#include <stdint.h>     /* für uint64 definition */
-#include <stdlib.h>     /* für exit() definition */
-#include <unistd.h>
-//https://www.electronicshub.org/raspberry-pi-color-sensor-tutorial/
-// Pin Belegung in BCM Nummern
-// Zeitmessungen / Pulsebreite: http://ondrej1024.github.io/emond/
-#define S0        // direct auf Vcc
-#define S1        // direct auf Vcc
-#define S2 23
-#define S3 24
-#define sensorOut 25
-// Kalibrierungswerte für rot, blau, grün
-long Calred = 0;
-long Calblue = 0;
-long Calgreen = 0;
+#include <stdio.h>
+#include <time.h>
+#include<stdlib.h>
 
-//frequency scalling to 2%, 20%, 100%
-// S0 = Low + S1 = High -> 2%
-// S0 = High + S1 = Low -> 20%
-// S0 = High + S1 = High -> 100%
-
-int main(void)
+int main(int argc, char **argv)
 {
-// OUTPUT / INPUT Definition
-if (wiringPiSetup() == -1)
-    return 1;
-pinMode (S2, OUTPUT);
-pinMode (S3, OUTPUT);
-pinMode (sensorOut, INPUT);
-// loop Variablen initialisieren
-int i = 0;
-long diff = 1000000000;     //für Nanosec
-//Zeitmessung für Pulsweite
-struct timespec startred, endred;
 
-//Auslesen der Farben Tabelle
-//S2 = Low + S3 = Low -> rot
-//S2 = Low + S3 = High -> blau
-//S2 = High + S3 = High -> grün
+  double result;
+  struct timespec tp,tz;
+  clockid_t clk_id;
+  double i=1.123456789;
+  printf("i: %.9f\n", i);
+//  clk_id = CLOCK_REALTIME;
+  clk_id = CLOCK_MONOTONIC;
+//  clk_id = CLOCK_BOOTTIME;
+//  clk_id = CLOCK_PROCESS_CPUTIME_ID;
 
-// Kalibrierung
-printf("Weiß Kal. nach 5 sec\n");
-delay(500);
-printf("start\n");
-fflush(stdout);
-//Start der Kalibrierung
-//rot lesen
-digitalWrite(S2,LOW);
-digitalWrite(S3,LOW);
-    
-while (i == 2)
-{
-    	
-    //Puls Messung risingedge bis fallingedge ms Messung
-    if (digitalRead (sensorOut) == 1 && i == 0)
-    {
-    clock_gettime( CLOCK_REALTIME, &startred);
-    i = 1;
-    }
-    
-    if (digitalRead (sensorOut) == 0 && i == 1)
-    {
-    clock_gettime( CLOCK_REALTIME, &endred);
-    i = 2;
-    }
-}
-Calred = ((endred.tv_sec - startred.tv_sec) + (endred.tv_nsec - startred.tv_nsec))/diff;
-printf("Rot = %lu \n", Calred);
-printf("Rot = %lu \n",Calred);
-    //Zähler zurücksetzen für den nächsten Loop
-    i = 0;
+  // int clock_gettime(clockid_t clk_id, struct timespec *tp);
+  result = clock_gettime(clk_id, &tp);
+  printf("result: %f\n", result);
+  printf("tp.tv_sec: %lld\n", (long long int)tp.tv_sec);
+  printf("tp.tv_nsec: %ld\n", tp.tv_nsec);
+
+  result = clock_getres(clk_id, &tp);
+  printf("result: %f\n", result);
+  printf("tp.tv_sec: %lld\n",(long long int) tp.tv_sec);
+  printf("tp.tv_nsec: %ld\n", tp.tv_nsec);
+  //500 ns sleep
+  result = clock_gettime(clk_id, &tz);
+  struct timespec tim, tim2;
+   tim.tv_sec = 0;
+   tim.tv_nsec = 500;
+
+   nanosleep(&tim , &tim2);
+
+
+  result = clock_gettime(clk_id, &tp);
+  printf("result: %f\n", result);
+  printf("tp.tv_sec: %lld\n", (long long int)tp.tv_sec);
+  printf("tp.tv_nsec: %f\n", (double) tp.tv_nsec/1000000000);
+  printf("tz.tv_sec: %lld\n", (long long int)tz.tv_sec);
+  printf("tz.tv_nsec: %f\n", (double) tz.tv_nsec/1000000000);
+  result = ((tp.tv_sec + ((double)tp.tv_nsec/1000000000)) -
+(tz.tv_sec + ((double)tz.tv_nsec/1000000000)));
+printf("result: %.9f\n", result);
+return 0;
 }
