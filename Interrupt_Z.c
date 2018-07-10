@@ -67,7 +67,7 @@ struct timespec tim, tim2;
   digitalWrite(S3,LOW);
   while ( i <= 500 ) 
   {
-    printf( "%d\n", eventCounter );
+   // printf( "%d\n", eventCounter );
     nanosleep(&tim,&tim2);
     i++;
   }
@@ -81,7 +81,7 @@ struct timespec tim, tim2;
   digitalWrite(S3,HIGH);
   while ( i <= 500 ) 
   {
-    printf( "%d\n", eventCounter );
+   // printf( "%d\n", eventCounter );
     nanosleep(&tim,&tim2);
     i++;
   }
@@ -95,7 +95,7 @@ struct timespec tim, tim2;
   digitalWrite(S3,HIGH);
   while ( i <= 500 ) 
   {
-    printf( "%d\n", eventCounter );
+   // printf( "%d\n", eventCounter );
     nanosleep(&tim,&tim2);
     i++;
   }
