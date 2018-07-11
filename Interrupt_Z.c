@@ -2,12 +2,12 @@
 #include <errno.h>
 #include <stdio.h>      // für printf
 #include <wiringPi.h>   // für Pindefinition
-#include <time.h>       /* für clock_gettime */
-#include <sys/time.h>   // für gettimeofday()
-#include <stdint.h>     /* für uint64 definition */
-#include <stdlib.h>     /* für exit() definition */
+#include <time.h>       // für nanosleep
+//#include <stdint.h>     /* für uint64 definition */
+//#include <stdlib.h>     /* für exit() definition */
 #include <unistd.h>
 
+//Pindefinition mit wiringPi
 //S0       direct auf Vcc
 //S1       direct auf Vcc
 #define S2 4
@@ -24,44 +24,37 @@ double Calgreen = 0;
 // S0 = High + S1 = Low -> 20%
 // S0 = High + S1 = High -> 100%
 
-
-// Use GPIO Pin 17, which is Pin 0 for wiringPi library
-
-
-//Interrupt Bsp.: http://www.science.smith.edu/dftwiki/index.php/Tutorial:_Interrupt-Driven_Event-Counter_on_the_Raspberry_Pi
-// the event counter 
+// event counter Variable
 volatile int eventCounter = 0;
 int i = 0;
-// myInterrupt:  called every time an event occurs
+// myInterrupt:  Wir nach jedem Interrupt aufgerufen
 void myInterrupt(void) {
    eventCounter++;
 }
 
 int main(void) {
-  // sets up the wiringPi library
+  // sets up wiringPi library
   if (wiringPiSetup () < 0) {
       fprintf (stderr, "Unable to setup wiringPi: %s\n", strerror (errno));
       return 1;
   }
+//Steuerpins S2/S3 als Output
 pinMode (S2, OUTPUT);
 pinMode (S3, OUTPUT);
 pinMode (sensorOut, INPUT);
 
+//Definition des nanosleeps
 struct timespec tim, tim2;
    tim.tv_sec = 0;
    tim.tv_nsec = 1000000;
-  // set Pin 17/0 generate an interrupt on high-to-low transitions
-  // and attach myInterrupt() to the interrupt
-  
+   
+//Start der Interruptroutine
    if ( wiringPiISR (sensorOut, INT_EDGE_FALLING, &myInterrupt) < 0 ) 
   {
       
       return 1;
   }
-   
-  // display counter value every second.
-  //clock_gettime(clk_id, &start);
-  //starttime = (start.tv_sec + ((double)start.tv_nsec/1000000000));
+
   //500ms Messung Rot
   digitalWrite(S2,LOW);
   digitalWrite(S3,LOW);
@@ -71,7 +64,7 @@ struct timespec tim, tim2;
     nanosleep(&tim,&tim2);
     i++;
   }
-  Calred = ((eventCounter/500)/2);
+  Calred = (eventCounter/500);
   printf ("Calred:%.9f\n",Calred);
   eventCounter = 0;
   i = 0;
@@ -85,7 +78,7 @@ struct timespec tim, tim2;
     nanosleep(&tim,&tim2);
     i++;
   }
-  Calblue = ((eventCounter/500)/2);
+  Calblue = (eventCounter/500);
   printf ("Calblue:%.9f\n",Calblue);
   eventCounter = 0;
   i = 0;
@@ -99,7 +92,7 @@ struct timespec tim, tim2;
     nanosleep(&tim,&tim2);
     i++;
   }
-  Calgreen = ((eventCounter/500)/2);
+  Calgreen = (eventCounter/500);
   printf ("Calgreen:%.9f\n",Calgreen);
   eventCounter = 0;
   i = 0;
