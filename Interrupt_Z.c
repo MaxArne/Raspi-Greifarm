@@ -1,5 +1,5 @@
 #include <string.h>
-#include <errno.h>
+//#include <errno.h>
 #include <stdio.h>      // für printf
 #include <wiringPi.h>   // für Pindefinition
 #include <time.h>       // für nanosleep
