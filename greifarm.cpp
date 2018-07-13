@@ -231,24 +231,24 @@ int main () {
             eventCounter = 0;
             i = 0;
             
-            if (rot > Calred*2/3 && blau < Calblue/3 && gruen < Calgreen/3)
+            if (rot > Calred/2 && blau < Calblue/2 && gruen < Calgreen/2 && rot > 50)
             {
                 red = true;
             }
             
-            if (rot < Calred/3 && blau > Calblue*2/3 && gruen < Calgreen/3)
+            if (rot < Calred/2 && blau > Calblue/2 && gruen < Calgreen/2 && blau > 50)
             {
                 blue = true;
             }
             
-            if (rot < Calred/3 && blau < Calblue/3 && gruen  > Calgreen*2/3)
+            if (rot < Calred/2 && blau < Calblue/2 && gruen  > Calgreen/2 && gruen > 50)
             {
                 green = true;
             }
             
             
         }
-        
+        //Auswahl der Bewegungroutine für rot
         if(red==true && blue==false && green == false){
             pwm.setPWM(4,0,400);
             for(p=j; p<360;){
@@ -269,7 +269,7 @@ int main () {
             pwm.setPWM(4,0,220);
             
         }
-        
+        //Auswahl der Bewegungroutine für blau
         if(red==false && blue==true && green == false){
             pwm.setPWM(4,0,400);
             for(p=j; p<430;){
@@ -290,7 +290,7 @@ int main () {
             }
             pwm.setPWM(4,0,220);
         }
-        
+        //Auswahl der Bewegungroutine für grün
         if(red==false && blue==false && green == true){
             pwm.setPWM(4,0,400);
             for(p=j; p<500;){
