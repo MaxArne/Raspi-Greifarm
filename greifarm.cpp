@@ -10,8 +10,8 @@
 //#include <ncurses.h>
 //#include <thread>
 #include <unistd.h>
-#include <wiringPi.h>   // f  r Pindefinition
-#include <time.h>
+#include <wiringPi.h>   // für Pindefinition
+#include <time.h>       // nanosleep()
 
 #define S2 4
 #define S3 5
@@ -47,7 +47,7 @@ int main () {
     
     int c=0, p=0, i;
     printf ("Testing testing\n");
-    //make sure you use the right address values.
+    //Address values.
     PCA9685 pwm;
     pwm.init(1,0x40);
     usleep(1000 * 100);
