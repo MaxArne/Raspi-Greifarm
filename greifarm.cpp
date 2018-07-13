@@ -187,7 +187,7 @@ int main () {
         blue= false;
         green= false;
         
-        while (red == true || blue == true || green == true )
+        while (1)
         {
             //500ms Messung Rot
             digitalWrite(S2,LOW);
