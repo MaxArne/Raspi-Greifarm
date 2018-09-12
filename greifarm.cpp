@@ -95,8 +95,8 @@ int main () {
         
         return 1;
     }
-    
-    
+    /*
+    // Kalbierungswerte bestimmen
     //500ms Messung Rot
     digitalWrite(S2,LOW);
     digitalWrite(S3,LOW);
@@ -139,7 +139,7 @@ int main () {
     printf ("Calgreen:%.9f\n",Calgreen);
     eventCounter = 0;
     i = 0;
-    
+    */
     //Wei ^=er Stein in Box
     //
     
@@ -182,13 +182,19 @@ int main () {
         }
         
         double rot, blau, gruen;
-        bool red, blue, green;
+        bool red, blue, green,black,yellow,white;
+        
+        //eventuell Start der Schleife durch einen Knopfdruck
+        while (1)
+        {
+        //Initialisierung
         red= false;
         blue= false;
         green= false;
-        
-        while (1)
-        {
+        black=false;
+        yellow=false;
+        white=false;
+            
             //500ms Messung Rot
             digitalWrite(S2,LOW);
             digitalWrite(S3,LOW);
@@ -217,7 +223,7 @@ int main () {
             eventCounter = 0;
             i = 0;
             
-            //500ms Messung Gr  n
+            //500ms Messung Gruen
             digitalWrite(S2,HIGH);
             digitalWrite(S3,HIGH);
             while ( i <= 500 )
@@ -231,25 +237,37 @@ int main () {
             eventCounter = 0;
             i = 0;
             
-            if (rot > Calred/2 && blau < Calblue/2 && gruen < Calgreen/2 && rot > 50)
+            if (rot => 45 && rot > blau && rot > gruen)
             {
                 red = true;
             }
             
-            if (rot < Calred/2 && blau > Calblue/2 && gruen < Calgreen/2 && blau > 50)
+            if (blue => 50 && blau > rot && blau > gruen)
             {
                 blue = true;
             }
             
-            if (rot < Calred/2 && blau < Calblue/2 && gruen  > Calgreen/2 && gruen > 50)
+            if (gruen => 25 && gruen > blau && gruen > rot)
             {
                 green = true;
             }
-            
+            if (gruen < 15 && rot < 15 && blue < 15)
+            {
+                black = true;
+            }
+            if (gruen => 60 && rot => 50 && blau => 40)
+            {
+                yellow = true;
+            }
+             if (gruen => 65 && rot => 65 && blau => 65)
+            {
+                white = true;
+                yellow = false;
+            }
             
         }
         //Auswahl der Bewegungroutine für rot
-        if(red==true && blue==false && green == false){
+        if(red==true && blue==false && green == false && black==false && yellow==false && white==false){
             pwm.setPWM(4,0,400);
             for(p=j; p<360;){
                 p=p+10;
@@ -270,7 +288,7 @@ int main () {
             
         }
         //Auswahl der Bewegungroutine für blau
-        if(red==false && blue==true && green == false){
+        elseif(red==false && blue==true && green == false && black==false && yellow==false && white==false){
             pwm.setPWM(4,0,400);
             for(p=j; p<430;){
                 p=p+10;
@@ -291,7 +309,7 @@ int main () {
             pwm.setPWM(4,0,220);
         }
         //Auswahl der Bewegungroutine für grün
-        if(red==false && blue==false && green == true){
+        elseif(red==false && blue==false && green == true && black==false && yellow==false && white==false){
             pwm.setPWM(4,0,400);
             for(p=j; p<500;){
                 p=p+10;
@@ -310,7 +328,18 @@ int main () {
             }
             pwm.setPWM(4,0,220);
         }
+        //Auswahl der Bewegungroutine für black
+        elseif(red==false && blue==false && green == false && black==true && yellow==false && white==false){
         
+        }
+        //Auswahl der Bewegungroutine für yellow
+        elseif(red==false && blue==false && green == false && black==false && yellow==true && white==false){
+        
+        }
+        //Auswahl der Bewegungroutine für white
+        elseif(red==false && blue==false && green == false && black==false && yellow==false && white==true){
+        
+        }
         return 0;
     }
 }
