@@ -161,7 +161,7 @@ int main () {
      usleep(1000 * 100);
      j=p;
      }*/
-    while(true){
+    while(1){
         
         //Motor auf Ausgang Position
         pwm.setPWM(4,0,250);
@@ -182,10 +182,11 @@ int main () {
         }
         
         double rot, blau, gruen;
+        bool x=true;
         bool red, blue, green,black,yellow,white;
-        
+        if(
         //eventuell Start der Schleife durch einen Knopfdruck
-        while (1)
+        while (x==true)
         {
         //Initialisierung
         red= false;
