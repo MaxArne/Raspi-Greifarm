@@ -161,6 +161,10 @@ int main () {
      usleep(1000 * 100);
      j=p;
      }*/
+    double rot, blau, gruen;
+    bool x=true;
+    bool red, blue, green,black,yellow,white;
+    
     while(1){
         
         //Motor auf Ausgang Position
@@ -180,10 +184,14 @@ int main () {
             usleep(1000 * 100);
             j=p;
         }
+        x = true;
+        red= false;
+        blue= false;
+        green= false;
+        black=false;
+        yellow=false;
+        white=false;
         
-        double rot, blau, gruen;
-        bool x=true;
-        bool red, blue, green,black,yellow,white;
         if(
         //eventuell Start der Schleife durch einen Knopfdruck
         while (x==true)
