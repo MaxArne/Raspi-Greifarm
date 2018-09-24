@@ -1,14 +1,10 @@
 #include "servo.h"
 #include <iostream>
 #include <stdio.h>
-//#include <ncurses.h>
-//#include <thread>
 #include <unistd.h>
 
 #include <stdio.h>
 #include <string.h>
-//#include <ncurses.h>
-//#include <thread>
 #include <unistd.h>
 #include <wiringPi.h>   // für Pindefinition
 #include <time.h>       // nanosleep()
@@ -30,7 +26,7 @@ using namespace std;
 // event counter Variable
 volatile int eventCounter = 0;
 int p = 0;
-// myInterrupt:  Wir nach jedem Interrupt aufgerufen
+// myInterrupt:  Wird nach jedem Interrupt aufgerufen
 void myInterrupt(void) {
     eventCounter++;
 }
@@ -56,8 +52,6 @@ int main () {
     usleep(1000 * 1000);
     
     int j=220;
-   // printf ("geben Sie 1 , 2, 3, 4 ein\n");
-    //scanf ("%d",&c);
     
     //Motor auf Ausgang Position
     pwm.setPWM(4,0,250);
@@ -95,53 +89,6 @@ int main () {
         
         return 1;
     }
-    /*
-    // Kalbierungswerte bestimmen
-    //500ms Messung Rot
-    digitalWrite(S2,LOW);
-    digitalWrite(S3,LOW);
-    while ( i <= 500 )
-    {
-        // printf( "%d\n", eventCounter );
-        nanosleep(&tim,&tim2);
-        i++;
-    }
-    Calred = (eventCounter/500);
-    printf ("Calred:%.9f\n",Calred);
-    eventCounter = 0;
-    i = 0;
-    
-    //500ms Messung Blau
-    digitalWrite(S2,LOW);
-    digitalWrite(S3,HIGH);
-    while ( i <= 500 )
-    {
-        // printf( "%d\n", eventCounter );
-        nanosleep(&tim,&tim2);
-        i++;
-    }
-    Calblue = (eventCounter/500);
-    printf ("Calblue:%.9f\n",Calblue);
-    eventCounter = 0;
-    i = 0;
-    
-    //500ms Messung Gr  n
-    digitalWrite(S2,HIGH);
-    digitalWrite(S3,HIGH);
-    while ( i <= 500 )
-        
-    {
-        // printf( "%d\n", eventCounter );
-        nanosleep(&tim,&tim2);
-        i++;
-    }
-    Calgreen = (eventCounter/500);
-    printf ("Calgreen:%.9f\n",Calgreen);
-    eventCounter = 0;
-    i = 0;
-    */
-    //Wei ^=er Stein in Box
-    //
     
     pwm.setPWM(4,0,400);
     for(p=j; p<290;){
@@ -153,14 +100,14 @@ int main () {
     }
     
     pwm.setPWM(4,0,250);
-    /* for(p=j;p>240;)
+    for(p=j;p>240;)
      {
      p=p-10;
      pwm.setPWM(0,0,p);
      printf ("%d\n",p);
      usleep(1000 * 100);
      j=p;
-     }*/
+     }
     double rot, blau, gruen;
     bool x=true;
     bool red, blue, green,black,yellow,white;
@@ -191,9 +138,7 @@ int main () {
         black=false;
         yellow=false;
         white=false;
-        
-        if(
-        //eventuell Start der Schleife durch einen Knopfdruck
+                      
         while (x==true)
         {
         //Initialisierung
@@ -349,6 +294,7 @@ int main () {
         elseif(red==false && blue==false && green == false && black==false && yellow==false && white==true){
         
         }
-        return 0;
+        
     }
+    return 0;
 }
